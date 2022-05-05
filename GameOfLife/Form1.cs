@@ -21,6 +21,17 @@ namespace GameOfLife
         public GameWindow()
         {
             InitializeComponent();
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams handleParam = base.CreateParams;
+                handleParam.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED       
+                return handleParam;
+            }
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -63,7 +74,7 @@ namespace GameOfLife
 
 
             Graphics g = e.Graphics;
-            Brush drawingBrush = new SolidBrush(Color.Pink);
+            Brush drawingBrush = new SolidBrush(Color.Black);
             Pen drawingPen = new Pen(Color.White);
 
             for (int i = 0; i < Globals.cols; i++)
@@ -82,7 +93,7 @@ namespace GameOfLife
                     }
                     else
                     {
-                        Brush drawingBrush2 = new SolidBrush(Color.Teal);
+                        Brush drawingBrush2 = new SolidBrush(Color.DarkOliveGreen);
                         //g.DrawRectangle(drawingPen, rect);
                         g.FillRectangle(drawingBrush2, rect);
                     }
@@ -117,7 +128,7 @@ namespace GameOfLife
                 }
             }
             Globals.grid = next;
-            MyTimer.Interval = 300; //refresh
+            MyTimer.Interval = 500; //refresh
 
             MyTimer.Tick += new EventHandler(MyTimer_Tick);
             MyTimer.Start();
