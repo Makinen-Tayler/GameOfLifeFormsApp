@@ -128,7 +128,7 @@ namespace GameOfLife
                 }
             }
             Globals.grid = next;
-            MyTimer.Interval = 500; //refresh
+            MyTimer.Interval = 125; //refresh
 
             MyTimer.Tick += new EventHandler(MyTimer_Tick);
             MyTimer.Start();
